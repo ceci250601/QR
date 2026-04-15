@@ -8,10 +8,14 @@ usage() {
 }
 
 if [ $# -lt 1 ]; then
-  usage
+  read -rp "Inserisci l'URL da codificare nel QR: " url
+  if [ -z "$url" ]; then
+    echo "Nessun URL inserito. Esco."
+    exit 1
+  fi
+else
+  url="$1"
 fi
-
-url="$1"
 
 # ensure QR directory exists
 mkdir -p QR
@@ -66,3 +70,5 @@ if [ -n "$open_cmd" ]; then
 else
   echo "No suitable opener command found. Open the file manually: $out"
 fi
+
+sleep 20
